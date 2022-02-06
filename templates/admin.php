@@ -3,7 +3,8 @@
     <div class="card">
         <form action="" method="post" style="text-align: center">
             <p>
-                <input type="submit" name="submit" class="button button-primary button-hero" value="Convert All Elementor Pages" />
+                <input type="submit" name="submit" class="button button-primary button-hero"
+                       value="Convert All Elementor Pages"/>
             </p>
             <p>
                 <label>
@@ -20,7 +21,8 @@
     <div class="card debug">
         <div class="debug-data"></div>
         <div class="convert-data">
-            <h2>Converted pages</h2><ul></ul>
+            <h2>Converted pages</h2>
+            <ul></ul>
         </div>
     </div>
 

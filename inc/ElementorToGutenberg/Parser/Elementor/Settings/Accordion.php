@@ -10,7 +10,7 @@ class Accordion extends Settings
     {
         $this->additional = [
             'expandFirstItem' => true,
-            'borderRadius' => 10,
+            'borderRadius'    => 10,
         ];
     }
 }

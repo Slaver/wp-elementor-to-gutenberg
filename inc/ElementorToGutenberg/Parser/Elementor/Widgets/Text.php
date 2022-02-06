@@ -9,19 +9,22 @@ use DOMDocument;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
-class Text extends Elementor {
+class Text extends Elementor
+{
 
-	public function run(): string
-	{
-		$return = '';
+    public function run(): string
+    {
+        $return = '';
 
-        if (!empty($this->element->settings->editor)) {
-		    // Validate HTML
-            $config   = HTMLPurifier_Config::createDefault();
+        if ( ! empty($this->element->settings->editor)) {
+            // Validate HTML
+            $config = HTMLPurifier_Config::createDefault();
             $config->set('AutoFormat.AutoParagraph', true);
             $config->set('AutoFormat.RemoveEmpty', true);
-            $config->set('CSS.AllowedProperties', 'font,font-size,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,width');
-            $config->set('HTML.Allowed', 'div[class|style],b,strong,i,em,a[href|title|class|style],ul,ol,li,p[style|class],br,img[style|width|height|alt|src|class],table[style|class],tbody[style|class],thead[style|class],tr[style|class],td[style|class],th[style|class]');
+            $config->set('CSS.AllowedProperties',
+                'font,font-size,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,width');
+            $config->set('HTML.Allowed',
+                'div[class|style],b,strong,i,em,a[href|title|class|style],ul,ol,li,p[style|class],br,img[style|width|height|alt|src|class],table[style|class],tbody[style|class],thead[style|class],tr[style|class],td[style|class],th[style|class]');
 
             $purifier = new HTMLPurifier($config);
             $editor   = $purifier->purify($this->element->settings->editor);
@@ -43,7 +46,7 @@ class Text extends Elementor {
 
                         if ($this->element->settings->_background_color) {
                             $section = new Section($this->element);
-                            $return .= $section->open();
+                            $return  .= $section->open();
                         }
 
                         $return .= $this->html($item);
@@ -67,51 +70,51 @@ class Text extends Elementor {
         }
 
         return $return;
-	}
+    }
 
-	public function html($item): string
-	{
-		$return = '';
+    public function html($item): string
+    {
+        $return   = '';
         $settings = false;
 
-		$item->encoding = 'UTF-8';
+        $item->encoding = 'UTF-8';
 
         switch ($item->nodeName) {
-			case 'p':
+            case 'p':
                 $settings = new Settings\Paragraph($this->element);
-				$tag = 'wp:paragraph';
-				break;
-			case 'ul':
+                $tag      = 'wp:paragraph';
+                break;
+            case 'ul':
                 $settings = new Settings\UlList($this->element);
-                $tag = 'wp:list';
-				break;
-			case 'ol':
+                $tag      = 'wp:list';
+                break;
+            case 'ol':
                 $settings = new Settings\OlList($this->element);
-                $tag = 'wp:list';
-				break;
-			case 'blockquote';
-			    // @TODO
+                $tag      = 'wp:list';
+                break;
+            case 'blockquote';
+                // @TODO
                 $tag = 'wp:quote';
-				break;
-			default:
-                wp_send_json_error('Unknown text child: '.$item->nodeName);
-				break;
+                break;
+            default:
+                wp_send_json_error('Unknown text child: ' . $item->nodeName);
+                break;
         }
 
         $style = $settings->css();
-        if (!empty($style)) {
+        if ( ! empty($style)) {
             $item->setAttribute('style', $style);
             $item->setAttribute('class', $settings->classes());
         }
 
-        if (!empty($tag)) {
-            $return .= '<!-- '.$tag.' ';
+        if ( ! empty($tag)) {
+            $return .= '<!-- ' . $tag . ' ';
             $return .= $settings->json();
             $return .= ' -->';
             $return .= $item->ownerDocument->saveHTML($item);
-            $return .= '<!-- /'.$tag.' -->';
+            $return .= '<!-- /' . $tag . ' -->';
         }
 
-		return $return;
-	}
+        return $return;
+    }
 }

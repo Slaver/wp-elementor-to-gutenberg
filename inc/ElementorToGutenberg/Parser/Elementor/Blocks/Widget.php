@@ -5,34 +5,35 @@ namespace ElementorToGutenberg\Parser\Elementor\Blocks;
 use ElementorToGutenberg\Parser\Elementor\Elementor;
 use ElementorToGutenberg\Parser\Elementor\Widgets;
 
-class Widget extends Elementor {
+class Widget extends Elementor
+{
 
-	public function run(): string
-	{
-		$return = '';
+    public function run(): string
+    {
+        $return = '';
 
-		switch ($this->element->widgetType) {
-			case 'spacer':
-				$return = (new Widgets\Spacer($this->element))->run();
-				break;
+        switch ($this->element->widgetType) {
+            case 'spacer':
+                $return = (new Widgets\Spacer($this->element))->run();
+                break;
 
-			case 'heading':
-				$return = (new Widgets\Heading($this->element))->run();
-				break;
+            case 'heading':
+                $return = (new Widgets\Heading($this->element))->run();
+                break;
 
-			case 'text-editor':
-				$return = (new Widgets\Text($this->element))->run();
-				break;
+            case 'text-editor':
+                $return = (new Widgets\Text($this->element))->run();
+                break;
 
-			case 'shortcode':
+            case 'shortcode':
                 $return = (new Widgets\Shortcode($this->element))->run();
-				break;
+                break;
 
-			case 'image':
+            case 'image':
                 $return = (new Widgets\Image($this->element))->run();
-				break;
+                break;
 
-			case 'button':
+            case 'button':
                 $return = (new Widgets\Button($this->element))->run();
                 break;
 
@@ -45,21 +46,21 @@ class Widget extends Elementor {
                 //$return = (new Widgets\FAQ($this->element))->run();
                 break;
 
-			case 'template':
-				// @TODO $this->element->settings->template_id
-				break;
+            case 'template':
+                // @TODO $this->element->settings->template_id
+                break;
 
-			case 'icon-list':
-				// @TODO
-				break;
+            case 'icon-list':
+                // @TODO
+                break;
 
             default:
-                wp_send_json_error('Unknown widget type: '.$this->element->widgetType);
+                wp_send_json_error('Unknown widget type: ' . $this->element->widgetType);
                 break;
-		}
+        }
 
-		return $return;
-	}
+        return $return;
+    }
 
 
 }

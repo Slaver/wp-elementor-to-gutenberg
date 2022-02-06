@@ -9,10 +9,10 @@ Version: 0.0.1
 */
 
 // Exit
-defined('ABSPATH') OR die();
+defined('ABSPATH') or die();
 
 define('ETG_DIR', plugin_dir_path(__FILE__));
-define('ETG_URL', plugins_url('', __FILE__ ));
+define('ETG_URL', plugins_url('', __FILE__));
 
 require __DIR__ . '/autoload.php';
 

@@ -5,12 +5,13 @@ namespace ElementorToGutenberg\Parser\Elementor\Widgets;
 use ElementorToGutenberg\Parser\Elementor\Elementor;
 use ElementorToGutenberg\Parser\Elementor\Settings;
 
-class FAQ extends Elementor {
+class FAQ extends Elementor
+{
 
     public function run(): string
     {
-        $return   = '';
-        if (!empty($this->element->settings->faq_list)) {
+        $return = '';
+        if ( ! empty($this->element->settings->faq_list)) {
             $settings = new Settings\Accordion($this->element);
 
             $return .= '<!-- wp:uagb/faq';
@@ -26,6 +27,7 @@ class FAQ extends Elementor {
 
             //<!-- wp:uagb/faq-child {"block_id":"9402bb14","question":"Q1","answer":"A1"} -->
         }
+
         return $return;
     }
 }

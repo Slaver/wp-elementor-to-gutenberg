@@ -34,27 +34,31 @@ class Settings
                 return $this->settings[$value];
             }
         }
+
         return $this->settings;
     }
 
     public function classes()
     {
-        if (!empty($this->classes)) {
+        if ( ! empty($this->classes)) {
             return implode(' ', $this->classes);
         }
+
         return false;
     }
 
     public function attributes()
     {
-        if (!empty($this->attributes)) {
-            foreach($this->attributes as $attribute => $value) {
-                if (!empty($value)) {
+        if ( ! empty($this->attributes)) {
+            foreach ($this->attributes as $attribute => $value) {
+                if ( ! empty($value)) {
                     $return[] = $attribute . '="' . $value . '"';
                 }
             }
+
             return implode(' ', $return);
         }
+
         return false;
     }
 
@@ -62,12 +66,13 @@ class Settings
     {
         $css = [];
         foreach ($this->settings as $name => $settings) {
-            if (!empty($settings)) {
+            if ( ! empty($settings)) {
                 if ($name !== 'ordered') {
                     $css[] = $name . ': ' . $settings;
                 }
             }
         }
+
         return implode('; ', $css);
     }
 
@@ -75,23 +80,25 @@ class Settings
     {
         $json = [];
         foreach ($this->settings as $name => $settings) {
-            if (!empty($settings)) {
+            if ( ! empty($settings)) {
                 $json[$this->replace[$name]] = $settings;
             }
         }
+
         return $json;
     }
 
     public function json_additional(): array
     {
         $json = [];
-        if (!empty($this->additional)) {
+        if ( ! empty($this->additional)) {
             foreach ($this->additional as $name => $settings) {
-                if (!empty($settings)) {
+                if ( ! empty($settings)) {
                     $json[$name] = $settings;
                 }
             }
         }
+
         return $json;
     }
 
