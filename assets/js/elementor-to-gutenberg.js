@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
 
         let debug = $('input[name=debug]', submitForm).is(':checked')
 
-        if (confirm('Are you sure to run convertation?')) {
+        if (confirm('Are you sure to run conversion?')) {
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
