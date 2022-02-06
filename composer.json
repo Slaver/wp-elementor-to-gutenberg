@@ -1,0 +1,17 @@
+{
+  "name": "slaver/elementor-to-gutenberg",
+  "description": "Convert Elementor elements to Gutenberg blocks",
+  "authors": [
+    {
+      "name": "Viacheslav Radionov",
+      "email": "radionov@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-mbstring": "*",
+    "ext-dom": "*",
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ezyang/htmlpurifier": "^4.14"
+  }
+}
