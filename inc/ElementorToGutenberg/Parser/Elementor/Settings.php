@@ -4,12 +4,22 @@ namespace ElementorToGutenberg\Parser\Elementor;
 
 class Settings
 {
+    // List of CSS rules
     protected array $settings = [];
+
+    // List of JSON comments properties, replaced from settings
     protected array $replace = [];
+
+    // Custom properties only for JSON comments
     protected array $additional = [];
+
+    // Custom HTML classes for tags
     protected array $classes = [];
+
+    // Custom HTML attributes for tags
     protected array $attributes = [];
 
+    // Current element
     protected object $element;
 
     public function __construct(object $element)
@@ -49,14 +59,15 @@ class Settings
 
     public function attributes()
     {
+        $attributes = [];
         if ( ! empty($this->attributes)) {
             foreach ($this->attributes as $attribute => $value) {
                 if ( ! empty($value)) {
-                    $return[] = $attribute . '="' . $value . '"';
+                    $attributes[] = $attribute . '="' . $value . '"';
                 }
             }
 
-            return implode(' ', $return);
+            return implode(' ', $attributes);
         }
 
         return false;
