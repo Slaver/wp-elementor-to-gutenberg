@@ -9,7 +9,7 @@ class Paragraph extends Settings
     public function set()
     {
         $this->settings = [
-            'font-family'      => ( ! empty($this->element->settings->typography_font_family)) ? $this->element->settings->typography_font_family : null,
+            //'font-family'      => ( ! empty($this->element->settings->typography_font_family)) ? $this->element->settings->typography_font_family : null,
             'font-style'       => ( ! empty($this->element->settings->typography_font_style)) ? $this->element->settings->typography_font_style : null,
             'font-size'        => ( ! empty($this->element->settings->typography_font_size->size)) ? implode('', [
                 $this->element->settings->typography_font_size->size,
@@ -28,7 +28,7 @@ class Paragraph extends Settings
 
         $this->replace = [
             // style.typography.*
-            'font-family'      => 'fontFamily',
+            //'font-family'      => 'fontFamily',
             'font-style'       => 'fontStyle',
             'font-size'        => 'fontSize',
             'font-weight'      => 'fontWeight',

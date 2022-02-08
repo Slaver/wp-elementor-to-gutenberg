@@ -14,7 +14,8 @@ class Widget extends Elementor
 
         switch ($this->element->widgetType) {
             case 'spacer':
-                $return = (new Widgets\Spacer($this->element))->run();
+                // In real life it is neccessary
+                //$return = (new Widgets\Spacer($this->element))->run();
                 break;
 
             case 'heading':
