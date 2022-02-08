@@ -15,6 +15,15 @@ class FAQ extends Elementor
             $settings = new Settings\Accordion($this->element);
 
             $return .= '<!-- wp:uagb/faq ';
+
+            $schemaOption = '{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022FAQPage\u0022,\u0022@id\u0022:\u0022' . get_permalink() . '/\u0022,\u0022mainEntity\u0022:[';
+
+            foreach ($this->element->settings->faq_list as $line) {
+                $schemaOption .= '{\u0022@type\u0022:\u0022Question\u0022,\u0022name\u0022:\u0022' . $line->question . '\u0022,\u0022acceptedAnswer\u0022:{\u0022@type\u0022:\u0022Answer\u0022,\u0022text\u0022:\u0022' . $line->answer . '\u0022}},';
+            }
+
+
+
             $return .= $settings->json();
             $return .= ' -->';
             $return .= '<div class="wp-block-uagb-faq uagb-faq__outer-wrap uagb-block-'. $this->element->id . ' uagb-faq-icon-row uagb-faq-layout-accordion uagb-faq-inactive-other-true uagb-faq-equal-height" data-faqtoggle="true" role="tablist"><div class="uagb-faq__wrap uagb-buttons-layout-wrap">';
