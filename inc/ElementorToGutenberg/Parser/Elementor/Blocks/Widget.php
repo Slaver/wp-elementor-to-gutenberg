@@ -42,8 +42,7 @@ class Widget extends Elementor
                 break;
 
             case 'me-faq':
-                // @TODO
-                //$return = (new Widgets\FAQ($this->element))->run();
+                $return = (new Widgets\FAQ($this->element))->run();
                 break;
 
             case 'template':
