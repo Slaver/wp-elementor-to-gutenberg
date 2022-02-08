@@ -42,6 +42,7 @@ class Section extends Settings
         $this->additional = [
             'classMigrate'   => true,
             'className'      => $bgClass,
+            'contentWidth'   => 'full_width',
             'backgroundType' => ( ! empty($this->element->settings->_background_color)) ? 'color' : null,
         ];
 

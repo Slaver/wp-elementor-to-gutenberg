@@ -23,18 +23,19 @@ class Parser
 
     public function level($element): string
     {
-        $return = '';
-
-        $section = new Elementor\Blocks\Section($element);
-        $column  = new Elementor\Blocks\Column($element);
-        $widget  = new Elementor\Blocks\Widget($element);
-
         if ( ! in_array($element->elType, ['section', 'column', 'widget'])) {
             wp_send_json_error('Unknown element type: ' . $element->elType);
         }
 
+        $return  = '';
+        $section = new Elementor\Blocks\Section($element);
+        $column  = new Elementor\Blocks\Column($element);
+        $widget  = new Elementor\Blocks\Widget($element);
+
+        $hasColumns = count($element->elements) > 1 && !empty($element->elements[0]) && $element->elements[0]->elType === 'column';
+
         if ($element->elType === 'section') {
-            $return .= $section->open();
+            $return .= $section->open($hasColumns);
         }
 
         if ($element->elType === 'column') {
@@ -54,7 +55,7 @@ class Parser
         }
 
         if ($element->elType === 'section') {
-            $return .= $section->close();
+            $return .= $section->close($hasColumns);
         }
 
         return $return;
