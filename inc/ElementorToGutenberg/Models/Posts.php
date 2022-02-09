@@ -47,9 +47,6 @@ class Posts extends Models
         }, 10, 2);
 
         $query = new WP_Query([
-            // Post for FAQ-testing
-            'p' => 36437,
-
             'post_status'    => 'publish',
             'posts_per_page' => $limit,
             'order'          => 'ASC',
