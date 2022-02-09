@@ -17,9 +17,11 @@ class FAQ extends Elementor
         if ( ! empty($this->element->settings->faq_list)) {
             $settings = new Settings\Accordion($this->element);
 
+            $currentPostId = wp_cache_get('converter_postId');
+
             $return .= '<!-- wp:uagb/faq ';
-            // TODO create the mechanism of getting Post id, hardcoded for now
-            $schemaOption = ',"schema":"{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022FAQPage\u0022,\u0022@id\u0022:\u0022' . get_permalink(39573) . '\u0022,\u0022mainEntity\u0022:[';
+
+            $schemaOption = ',"schema":"{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022FAQPage\u0022,\u0022@id\u0022:\u0022' . get_permalink($currentPostId) . '\u0022,\u0022mainEntity\u0022:[';
 
             foreach ($this->element->settings->faq_list as $line) {
                 $question = $line->question;
