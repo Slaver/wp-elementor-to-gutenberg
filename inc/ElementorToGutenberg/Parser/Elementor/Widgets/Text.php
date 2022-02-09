@@ -92,6 +92,9 @@ class Text extends Elementor
                 $settings = new Settings\OlList($this->element);
                 $tag      = 'wp:list';
                 break;
+            case 'table';
+                // @TODO
+                break;
             case 'blockquote';
                 // @TODO
                 $tag = 'wp:quote';
