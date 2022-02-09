@@ -32,7 +32,7 @@ class Parser
         $column  = new Elementor\Blocks\Column($element);
         $widget  = new Elementor\Blocks\Widget($element);
 
-        $hasColumns = count($element->elements) > 1 && !empty($element->elements[0]) && $element->elements[0]->elType === 'column';
+        $hasColumns = (!empty($element->elements[0]) && $element->elements[0]->elType === 'column');
 
         if ($element->elType === 'section') {
             $return .= $section->open($hasColumns);
@@ -42,12 +42,12 @@ class Parser
             $return .= $column->open();
         }
 
-        if ($element->elType === 'widget') {
-            $return .= $widget->run();
-        }
-
         if ( ! empty($element->elements)) {
             $return .= $this->recursively($element->elements);
+        }
+
+        if ($element->elType === 'widget') {
+            $return .= $widget->run();
         }
 
         if ($element->elType === 'column') {
