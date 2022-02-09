@@ -8,7 +8,6 @@ use WP_Query;
 
 class Posts extends Models
 {
-
     const POST_META_ELEMENTOR_FIELD = '_elementor_data';
     const POST_META_ELEMENTOR_CONVERTED = '_elementor_converted';
 
