@@ -11,7 +11,6 @@ class Accordion extends Settings
         $this->additional = [
             'expandFirstItem' => true,
             'borderRadius'    => 10,
-//            'schema' => 'test',
         ];
     }
 }

@@ -18,8 +18,8 @@ class FAQ extends Elementor
             $settings = new Settings\Accordion($this->element);
 
             $return .= '<!-- wp:uagb/faq ';
-
-            $schemaOption = ',"schema":"{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022FAQPage\u0022,\u0022@id\u0022:\u0022' . 'http://localhost:8000/__trashed/' . '\u0022,\u0022mainEntity\u0022:[';
+            // TODO create the mechanism of getting Post id, hardcoded for now
+            $schemaOption = ',"schema":"{\u0022@context\u0022:\u0022https://schema.org\u0022,\u0022@type\u0022:\u0022FAQPage\u0022,\u0022@id\u0022:\u0022' . get_permalink(39573) . '\u0022,\u0022mainEntity\u0022:[';
 
             foreach ($this->element->settings->faq_list as $line) {
                 $question = $line->question;
