@@ -35,6 +35,7 @@ class Convertor
 
         foreach ($posts as $post) {
             if ( ! empty($post->elementor)) {
+                wp_cache_set('converter_postId', $post->ID);
                 $result[$post->ID]['post']      = $post;
                 $result[$post->ID]['converted'] = $this->parser->recursively($post->elementor);
             }

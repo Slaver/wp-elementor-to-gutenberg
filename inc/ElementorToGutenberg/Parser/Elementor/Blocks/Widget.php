@@ -42,17 +42,21 @@ class Widget extends Elementor
                 $return = (new Widgets\TableOfContents($this->element))->run();
                 break;
 
+            case 'me-table':
+                $return = (new Widgets\Table($this->element))->run();
+                break;
+
             case 'me-faq':
-                // @TODO
-                //$return = (new Widgets\FAQ($this->element))->run();
+                $return = (new Widgets\FAQ($this->element))->run();
                 break;
 
             case 'template':
-                // @TODO $this->element->settings->template_id
+            case 'global':
+                //$return = (new Widgets\Template($this->element))->run();
                 break;
 
             case 'icon-list':
-                // @TODO
+                $return = (new Widgets\IconList($this->element))->run();
                 break;
 
             default:

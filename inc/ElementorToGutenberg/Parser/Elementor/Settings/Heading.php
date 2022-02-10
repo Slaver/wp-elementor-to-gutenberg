@@ -53,6 +53,7 @@ class Heading extends Settings
         if ( ! empty($this->element->settings->title_color)) {
             $this->classes[] = 'has-text-color';
             $this->classes[] = 'has-' . $textColor . '-color';
+            $this->classes[] = 'handel-splatt-form';
         }
 
         if ( ! empty($this->element->settings->_background_color)) {

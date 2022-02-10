@@ -8,7 +8,6 @@ use WP_Query;
 
 class Posts extends Models
 {
-
     const POST_META_ELEMENTOR_FIELD = '_elementor_data';
     const POST_META_ELEMENTOR_CONVERTED = '_elementor_converted';
 
@@ -42,8 +41,9 @@ class Posts extends Models
     public function elementor($last = 0, $limit = 1): ?array
     {
         add_filter('posts_where', function ($where, WP_Query $q) {
-            $where .= ' AND ID > ' . $q->get('last_id');
-
+            if ($q->get('last_id')) {
+                $where .= ' AND ID > ' . $q->get('last_id');
+            }
             return $where;
         }, 10, 2);
 
@@ -57,11 +57,31 @@ class Posts extends Models
             'last_id'        => $last,
         ]);
 
-        foreach ($query->posts as $id => $post) {
-            $query->posts[$id]->elementor = get_post_meta($post->ID, self::POST_META_ELEMENTOR_FIELD, true);
-        }
+        if ($query->posts) {
+            foreach ($query->posts as $id => $post) {
+                $query->posts[$id]->elementor = get_post_meta($post->ID, self::POST_META_ELEMENTOR_FIELD, true);
+            }
 
-        return $query->posts;
+            return $query->posts;
+        }
+    }
+
+    public function post($postId = false)
+    {
+        if ($postId) {
+            $query = new WP_Query([
+                'p' => $postId,
+                'post_type' => 'any',
+                'post_status' => 'any',
+            ]);
+
+            if ($query->posts) {
+                foreach ($query->posts as $id => $post) {
+                    $query->posts[0]->elementor = get_post_meta($post->ID, self::POST_META_ELEMENTOR_FIELD, true);
+                }
+            }
+            return $query->posts[0];
+        }
     }
 
     public function update($postData)
@@ -83,4 +103,5 @@ class Posts extends Models
         $options = new Options();
         $options->add(['last' => $postId]);
     }
+
 }
