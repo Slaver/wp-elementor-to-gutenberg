@@ -16,7 +16,7 @@ class Section extends Elementor
         $return .= $settings->json();
         $return .= ' -->';
 
-        $return .= '<section class="wp-block-uagb-section uagb-section__wrap section-inner-wrap ' . $settings->classes() . '">';
+        $return .= '<section class="wp-block-uagb-section uagb-section__wrap ' . $settings->classes() . '">';
         $return .= '<div class="uagb-section__overlay"></div>';
         $return .= '<div class="uagb-section__inner-wrap">';
 

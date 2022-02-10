@@ -29,10 +29,6 @@ class Column extends Settings
                 $this->element->settings->padding->bottom . ($this->element->settings->padding->unit ?: 'px') : null,
             'padding-left'     => ( ! empty($this->element->settings->padding->left)) ?
                 $this->element->settings->padding->left . ($this->element->settings->padding->unit ?: 'px') : null,
-            'background-color' => ( ! empty($this->element->settings->background_color)
-                                    && mb_strtolower($this->element->settings->background_color) !== '#ffffff')
-                ? $this->element->settings->background_color
-                : null,
         ];
 
         $this->replace = [
@@ -46,8 +42,17 @@ class Column extends Settings
 
         $this->classes[] = 'wp-block-column';
 
+        if ( ! empty($this->element->settings->background_color)) {
+            $bgColor = mb_strtolower($this->element->settings->background_color);
+            if ($bgColor !== '#ffffff') {
+                $this->classes[] = 'has-' . implode('-', str_split(str_replace('#', '', $bgColor))) . '-background-color';
+                $this->classes[] = 'has-background';
+                $this->additional['backgroundColor'] = $bgColor;
+            }
+        }
+
         if ( ! empty($this->element->settings->content_position)) {
-            $this->classes[]                       = 'is-vertically-aligned-' . $this->element->settings->content_position;
+            $this->classes[] = 'is-vertically-aligned-' . $this->element->settings->content_position;
             $this->additional['verticalAlignment'] = $this->element->settings->content_position;
         }
     }
