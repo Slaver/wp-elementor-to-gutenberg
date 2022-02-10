@@ -56,7 +56,7 @@ class Widget extends Elementor
                 break;
 
             case 'icon-list':
-                //$return = (new Widgets\IconList($this->element))->run();
+                $return = (new Widgets\IconList($this->element))->run();
                 break;
 
             default:

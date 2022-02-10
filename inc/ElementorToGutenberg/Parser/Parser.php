@@ -15,17 +15,25 @@ class Parser
             $array = json_decode($array);
         }
         foreach ($array as $element) {
-            $result .= $this->level($element);
+            $root = $element->id;
+            if ($root === '1dbe6631') {
+                // cta_rating
+                if (strpos(json_encode($element), 'cta_rating') !== FALSE) {
+                    wp_send_json_error($element);
+                }
+            }
+            $result .= $this->level($element, $root);
         }
 
         return $result;
     }
 
-    public function level($element): string
+    public function level($element, $root = 0): string
     {
         if ( ! in_array($element->elType, ['section', 'column', 'widget'])) {
             wp_send_json_error('Unknown element type: ' . $element->elType);
         }
+        //var_dump($root);
 
         $return  = '';
         $section = new Elementor\Blocks\Section($element);
