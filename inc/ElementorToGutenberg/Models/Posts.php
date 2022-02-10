@@ -29,7 +29,6 @@ class Posts extends Models
     public function count(): int
     {
         $query = new WP_Query([
-            'p' => 7519,
             'post_status'    => 'publish',
             'posts_per_page' => '-1',
             'meta_query'     => $this->meta_query(),
@@ -49,7 +48,6 @@ class Posts extends Models
         }, 10, 2);
 
         $query = new WP_Query([
-            'p' => 7519,
             'post_status'    => 'publish',
             'posts_per_page' => $limit,
             'order'          => 'ASC',

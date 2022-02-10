@@ -50,5 +50,9 @@ class Section extends Settings
             $bgClass,
             'uagb-block-' . $this->element->id,
         ];
+
+        if ( ! empty($this->element->settings->background_color)) {
+            $this->classes[] = 'hva-er-nash';
+        }
     }
 }
