@@ -10,6 +10,8 @@ class Image extends Elementor
 
     public function run(): string
     {
+        $return = '';
+
         if ( ! empty($this->element->settings->image->url)) {
             $settings = new Settings\Image($this->element);
 
@@ -28,5 +30,6 @@ class Image extends Elementor
 
             return $return;
         }
+        return $return;
     }
 }

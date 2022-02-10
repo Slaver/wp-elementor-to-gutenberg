@@ -48,6 +48,7 @@ class Posts extends Models
         }, 10, 2);
 
         $query = new WP_Query([
+            'p' => 1489,
             'post_status'    => 'publish',
             'posts_per_page' => $limit,
             'order'          => 'ASC',
