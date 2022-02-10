@@ -17,7 +17,7 @@ class Section extends Settings
             'margin-right'     => ( ! empty($this->element->settings->_margin->right)) ? (int)$this->element->settings->_margin->right : null,
             'margin-bottom'    => ( ! empty($this->element->settings->_margin->bottom)) ? (int)$this->element->settings->_margin->bottom : null,
             'margin-left'      => ( ! empty($this->element->settings->_margin->left)) ? (int)$this->element->settings->_margin->left : null,
-            'background-color' => ( ! empty($this->element->settings->_background_color)) ? $this->element->settings->_background_color : null,
+            'background-color' => ( ! empty($this->element->settings->background_color)) ? $this->element->settings->background_color : null,
             'width'            => ( ! empty($this->element->settings->width)) ? $this->element->settings->width : 1140,
         ];
 
@@ -34,7 +34,7 @@ class Section extends Settings
             'width'            => 'width',
         ];
 
-        $bgClass = (! empty($this->element->settings->_background_color)
+        $bgClass = ( ! empty($this->element->settings->background_color)
                 ? 'uagb-section__background-color'
                 : 'uagb-section__background-undefined'
                    ) . ' section-inner-wrap';
@@ -43,7 +43,7 @@ class Section extends Settings
             'classMigrate'   => true,
             'className'      => $bgClass,
             'contentWidth'   => 'full_width',
-            'backgroundType' => ( ! empty($this->element->settings->_background_color)) ? 'color' : null,
+            'backgroundType' => ( ! empty($this->element->settings->background_color)) ? 'color' : null,
         ];
 
         $this->classes = [

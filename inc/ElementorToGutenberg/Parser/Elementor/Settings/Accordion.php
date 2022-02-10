@@ -51,6 +51,7 @@ class Accordion extends Settings
             'uagb-faq-expand-first-true',
             'uagb-faq-inactive-other-true',
             'uagb-faq-equal-height',
+            'custom-accordion',
         ];
     }
 }
