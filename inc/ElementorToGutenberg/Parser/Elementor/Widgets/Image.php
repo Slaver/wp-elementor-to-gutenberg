@@ -27,8 +27,6 @@ class Image extends Elementor
             $return .= ' alt="" />';
             $return .= '</figure>';
             $return .= '<!-- /wp:image -->';
-
-            return $return;
         }
         return $return;
     }

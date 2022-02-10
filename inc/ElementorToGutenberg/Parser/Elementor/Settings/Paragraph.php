@@ -24,7 +24,7 @@ class Paragraph extends Settings
             'line-height' => (!empty($this->element->settings->typography_line_height->size))
                 ? round($this->element->settings->typography_line_height->size, 1)
                 : null,
-            'border_style' => (!empty($this->element->settings->_border_border)) ? $this->element->settings->_border_border : null,
+            'border-style' => (!empty($this->element->settings->_border_border)) ? $this->element->settings->_border_border : null,
             'border-top-width' => (!empty($this->element->settings->_border_width->top)) ? implode('', [
                 $this->element->settings->_border_width->top,
                 ($this->element->settings->_border_width->unit ?: 'px')
@@ -76,10 +76,9 @@ class Paragraph extends Settings
 
         ];
 
-
         $this->replace = [
             // style.typography.*
-            //'font-family'      => 'fontFamily',
+            //'font-family' => 'fontFamily',
             'font-style' => 'fontStyle',
             'font-size' => 'fontSize',
             'font-weight' => 'fontWeight',
