@@ -26,8 +26,8 @@ class Hooks
             return;
         }
 
-        wp_enqueue_script('e2g-scripts', ETG_URL . '/assets/js/elementor-to-gutenberg.js', ['jquery']);
-        wp_enqueue_style('e2g-styles', ETG_URL . '/assets/css/elementor-to-gutenberg.css');
+        wp_enqueue_script('e2g-scripts', ETG_URL . '/assets/js/elementor-to-gutenberg.js', ['jquery'], ETG_VERSION);
+        wp_enqueue_style('e2g-styles', ETG_URL . '/assets/css/elementor-to-gutenberg.css', [], ETG_VERSION);
     }
 
     public function run()

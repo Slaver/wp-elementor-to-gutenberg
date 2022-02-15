@@ -30,6 +30,7 @@ class Posts extends Models
     {
         $query = new WP_Query([
             'post_status'    => 'publish',
+            'post_type'      => 'post',
             'posts_per_page' => '-1',
             'meta_query'     => $this->meta_query(),
         ]);
@@ -37,7 +38,6 @@ class Posts extends Models
         return $query->found_posts;
     }
 
-    // @TODO before prod $limit to 10 or more
     public function elementor($last = 0, $limit = 1): ?array
     {
         add_filter('posts_where', function ($where, WP_Query $q) {
@@ -49,6 +49,7 @@ class Posts extends Models
 
         $query = new WP_Query([
             'post_status'    => 'publish',
+            'post_type'      => 'post',
             'posts_per_page' => $limit,
             'order'          => 'ASC',
             'meta_query'     => $this->meta_query(),
@@ -70,7 +71,7 @@ class Posts extends Models
         if ($postId) {
             $query = new WP_Query([
                 'p' => $postId,
-                'post_type' => 'any',
+                'post_type'   => 'any',
                 'post_status' => 'any',
             ]);
 
@@ -83,13 +84,11 @@ class Posts extends Models
         }
     }
 
-    public function update($postData)
+    public function update($postId, $postContent)
     {
-        $postId = $postData['post']->ID;
-
         wp_update_post(wp_slash([
             'ID'           => $postId,
-            'post_content' => $postData['converted']
+            'post_content' => $postContent
         ]));
 
         if (is_wp_error($postId)) {

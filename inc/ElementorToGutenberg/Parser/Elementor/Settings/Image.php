@@ -31,8 +31,16 @@ class Image extends Settings
 
         // Two variants of image sizes in Elementor
         if ( ! empty($this->element->settings->width)) {
-            $this->settings['width'] = $this->element->settings->width;
-            $this->attributes['width'] = $this->element->settings->width;
+            if ( ! empty($this->element->settings->width->size) && ! empty($this->element->settings->width->unit)) {
+                // Getenberg doesn't allow percentage in image size
+                if ($this->element->settings->width->unit !== '%') {
+                    $this->settings['width']   = $this->element->settings->width->size . $this->element->settings->width->unit;
+                    $this->attributes['width'] = $this->element->settings->width->size . $this->element->settings->width->unit;
+                }
+            } else {
+                $this->settings['width']   = $this->element->settings->width;
+                $this->attributes['width'] = $this->element->settings->width;
+            }
         }
         if ( ! empty($this->element->settings->height)) {
             $this->settings['height'] = $this->element->settings->height;
@@ -41,16 +49,16 @@ class Image extends Settings
 
         if ( ! empty($this->element->settings->image->id)) {
             $this->classes[] = 'wp-image-' . $this->element->settings->image->id;
-        }
 
-        // Problem with Elementor and default WP CSS reset
-        // We need to know width of image, height is not enough, but Elementor saves only height
-        if ( ! empty($this->element->settings->image->id) && $this->settings['height'] && ! $this->settings['width']) {
-            $image = wp_get_attachment_image_src($this->element->settings->image->id, 'full');
-            if ( ! empty($image[1]) && ! empty($image[2])) {
-                $imageScale = $image[1] / $image[2];
-                $this->settings['width'] = round($this->settings['height'] * $imageScale);
-                $this->attributes['width'] = round($this->settings['height'] * $imageScale);
+            // Problem with Elementor and default WP CSS reset
+            // We need to know width of image, height is not enough, but Elementor saves only height
+            if ($this->settings['height'] && ! $this->settings['width']) {
+                $image = wp_get_attachment_image_src($this->element->settings->image->id, 'full');
+                if ( ! empty($image[1]) && ! empty($image[2])) {
+                    $imageScale                = $image[1] / $image[2];
+                    $this->settings['width']   = round($this->settings['height'] * $imageScale);
+                    $this->attributes['width'] = round($this->settings['height'] * $imageScale);
+                }
             }
         }
 

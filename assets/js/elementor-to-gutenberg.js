@@ -1,10 +1,10 @@
 jQuery(document).ready(function($) {
-    let totalPosts = 0, convertedPosts = 0, submitForm = $('#e2g')
+    let totalPosts = 0, convertedPosts = 0, workDiv = $('#e2g')
 
-    $('form', submitForm).on('submit', function(e) {
+    $('form', workDiv).on('submit', function(e) {
         e.preventDefault()
 
-        let debug = $('input[name=debug]', submitForm).is(':checked')
+        let debug = $('input[name=debug]', workDiv).is(':checked')
 
         if (confirm('Are you sure to run conversion?')) {
             $.ajax({
@@ -16,13 +16,13 @@ jQuery(document).ready(function($) {
                 dataType: 'json',
                 cache: false,
                 beforeSend: function() {
-                    $('[type=submit]', submitForm).attr('disabled', 'disabled')
-                    $('[type=checkbox]', submitForm).attr('disabled', 'disabled')
-                    $('.debug-data', submitForm).html('')
-                    $('.debug', submitForm).hide()
+                    $('[type=submit]', workDiv).attr('disabled', 'disabled')
+                    $('[type=checkbox]', workDiv).attr('disabled', 'disabled')
+                    $('.debug-data', workDiv).html('')
+                    $('.debug', workDiv).hide()
                     if (!debug) {
-                        $('.convert-data', submitForm).show()
-                        $('.progress-bar', submitForm).show()
+                        $('.convert-data', workDiv).show()
+                        $('.progress-bar', workDiv).show()
                     }
                 },
                 success: function (response) {
@@ -45,38 +45,47 @@ jQuery(document).ready(function($) {
             },
             dataType: 'json',
             cache: false,
-            error: function () {
-                $('.debug', submitForm).show()
-                $('.debug-data', submitForm).append('<div class="text-error"><p>'+response.data+'</p></div>')
+            error: function (response) {
+                console.log(response.responseText)
+                $('.debug', workDiv).show()
+                $('.convert-data', workDiv).hide()
+                if (response.data) {
+                    $('.debug-data', workDiv).append('<div class="text-error"><p>' + response.data + '</p></div>')
+                } else {
+                    $('.debug-data', workDiv).append(response.responseText)
+                }
                 restore()
             },
             success: function (response) {
-                $('.debug', submitForm).show()
+                $('.debug', workDiv).show()
                 if (response.success) {
                     if (debug) {
                         $.each(response.data, function (i, obj) {
-                            $('.debug-data', submitForm)
-                                .append('<h2><a href="/wp-admin/post.php?post=' + obj.post.ID + '&action=edit">' + obj.post.post_title + '</a></h2>')
+                            $('.debug-data', workDiv)
+                                .append('<h2><a href="/wp-admin/post.php?post=' + i + '&action=edit">' + obj.title + '</a></h2>')
                                 .append(document.createTextNode(obj.converted))
                         })
                     } else {
                         $.each(response.data, function (i, obj) {
                             convertedPosts++
-                            $('.convert-data ul', submitForm)
-                                .append('<li><span><strong>#' + obj.post.ID + '</strong></span> ' +
-                                    '<span><a href="/wp-admin/post.php?post=' + obj.post.ID + '&action=edit">edit</a></span>' +
-                                    '<a href="/?p=' + obj.post.ID + '">' + obj.post.post_title + '</a></li>')
+                            $('.convert-data ul', workDiv)
+                                .prepend('<li><span><strong>#' + i + '</strong></span> ' +
+                                    '<span><a href="/wp-admin/post.php?post=' + i + '&action=edit">edit</a></span>' +
+                                    '<a href="/?p=' + i + '">' + obj.title + '</a></li>')
 
-                            $('.progress-bar span', submitForm).css('width', (convertedPosts / totalPosts * 100) + '%')
+                            $('.progress-bar span', workDiv).css('width', (convertedPosts / totalPosts * 100) + '%')
                         })
                     }
-                } else {
-                    $('.debug-data', submitForm).append('<div class="text-error"><p>'+response.data+'</p></div>')
-                }
 
-                if (!debug && (totalPosts - convertedPosts) > 0) {
-                    next()
+                    if (!debug && (totalPosts - convertedPosts) > 0) {
+                        next()
+                    } else {
+                        restore()
+                    }
                 } else {
+                    if (response.data) {
+                        $('.debug-data', workDiv).append('<div class="text-error"><p>' + response.data + '</p></div>')
+                    }
                     restore()
                 }
             }
@@ -84,8 +93,8 @@ jQuery(document).ready(function($) {
     }
 
     function restore() {
-        $('[type=submit]', submitForm).removeAttr('disabled')
-        $('[type=checkbox]', submitForm).removeAttr('disabled')
-        $('.progress-bar', submitForm).hide()
+        $('[type=submit]', workDiv).removeAttr('disabled')
+        $('[type=checkbox]', workDiv).removeAttr('disabled')
+        $('.progress-bar', workDiv).hide()
     }
 })

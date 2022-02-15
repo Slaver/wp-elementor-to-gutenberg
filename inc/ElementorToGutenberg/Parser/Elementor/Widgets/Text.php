@@ -92,13 +92,6 @@ class Text extends Elementor
                 $settings = new Settings\OlList($this->element);
                 $tag      = 'wp:list';
                 break;
-            case 'table';
-                // @TODO
-                break;
-            case 'blockquote';
-                // @TODO
-                $tag = 'wp:quote';
-                break;
             default:
                 wp_send_json_error('Unknown text child: ' . $item->nodeName);
                 break;

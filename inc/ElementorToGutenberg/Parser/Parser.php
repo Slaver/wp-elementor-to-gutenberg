@@ -15,7 +15,15 @@ class Parser
             $array = json_decode($array);
         }
         foreach ($array as $element) {
-            $result .= $this->level($element);
+            // Check if the element has a sign of eToro/sticky blocks
+            $checkElement = json_encode($element);
+            if (strpos($checkElement, 'cta_rating') !== FALSE) {
+                $result .= $this->custom($element, 'etoro');
+            } elseif (strpos($checkElement, 'cta-sticky-nonsticky') !== FALSE) {
+                $result .= $this->custom($element, 'sticky');
+            } else {
+                $result .= $this->level($element);
+            }
         }
 
         return $result;
@@ -32,9 +40,14 @@ class Parser
         $column  = new Elementor\Blocks\Column($element);
         $widget  = new Elementor\Blocks\Widget($element);
 
+        $sectionNotEmpty = true;
         $hasColumns = (!empty($element->elements[0]) && $element->elements[0]->elType === 'column');
 
-        if ($element->elType === 'section') {
+        if (count($element->elements) === 1 && empty($element->elements[0]->elements) && $element->elements[0]->elType === 'column') {
+            $sectionNotEmpty = false;
+        }
+
+        if ($element->elType === 'section' && $sectionNotEmpty) {
             $return .= $section->open($hasColumns);
         }
 
@@ -42,7 +55,7 @@ class Parser
             $return .= $column->open();
         }
 
-        if ( ! empty($element->elements)) {
+        if ( ! empty($element->elements) && $sectionNotEmpty) {
             $return .= $this->recursively($element->elements);
         }
 
@@ -54,12 +67,31 @@ class Parser
             $return .= $column->close();
         }
 
-        if ($element->elType === 'section') {
+        if ($element->elType === 'section' && $sectionNotEmpty) {
             $return .= $section->close($hasColumns);
         }
 
         return $return;
     }
 
+    public function custom($element, $type): string
+    {
+        $return  = '';
+
+        switch ($type) {
+            case 'etoro':
+                $block = new Elementor\Custom\EToro($element);
+                break;
+            case 'sticky':
+                $block = new Elementor\Custom\Sticky($element);
+                break;
+        }
+
+        if ( ! empty($block)) {
+            $return = $block->run();
+        }
+
+        return $return;
+    }
 
 }

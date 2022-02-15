@@ -36,14 +36,16 @@ class Convertor
         foreach ($posts as $post) {
             if ( ! empty($post->elementor)) {
                 wp_cache_set('converter_postId', $post->ID);
-                $result[$post->ID]['post']      = $post;
-                $result[$post->ID]['converted'] = $this->parser->recursively($post->elementor);
+                $result[$post->ID] = [
+                    'title' => $post->post_title,
+                    'converted' => $this->parser->recursively($post->elementor),
+                ];
             }
         }
 
         if ( ! $debug) {
             foreach ($result as $postId => $postData) {
-                $this->posts->update($postData);
+                $this->posts->update($postId, $postData['converted']);
                 unset($result[$postId]['converted']);
             }
         }

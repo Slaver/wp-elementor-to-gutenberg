@@ -21,7 +21,7 @@
     <div class="card debug">
         <div class="debug-data"></div>
         <div class="convert-data">
-            <h2>Converted pages</h2>
+            <h2>Converted posts</h2>
             <ul></ul>
         </div>
     </div>

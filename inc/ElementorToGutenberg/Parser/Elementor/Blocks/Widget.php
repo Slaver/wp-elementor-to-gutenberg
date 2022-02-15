@@ -14,7 +14,7 @@ class Widget extends Elementor
 
         switch ($this->element->widgetType) {
             case 'spacer':
-                // In real life it is neccessary
+                // In real life it is neccessary, too much paddings
                 //$return = (new Widgets\Spacer($this->element))->run();
                 break;
 
@@ -52,15 +52,21 @@ class Widget extends Elementor
 
             case 'template':
             case 'global':
-                //$return = (new Widgets\Template($this->element))->run();
+                $return = (new Widgets\Template($this->element))->run();
                 break;
 
             case 'icon-list':
                 $return = (new Widgets\IconList($this->element))->run();
                 break;
 
+            case 'video':
+                $return = (new Widgets\Video($this->element))->run();
+                break;
+
             default:
-                wp_send_json_error('Unknown widget type: ' . $this->element->widgetType);
+                // me-banner, me-posts - are not for posts
+                $currentPostId = wp_cache_get('converter_postId');
+                wp_send_json_error('Unknown widget type: ' . $this->element->widgetType . ' in post ID #<a href="/wp-admin/post.php?post='.$currentPostId.'&action=edit">' . $currentPostId . '</a>');
                 break;
         }
 
