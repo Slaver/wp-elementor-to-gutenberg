@@ -38,7 +38,7 @@ class Posts extends Models
         return $query->found_posts;
     }
 
-    public function elementor($last = 0, $limit = 1): ?array
+    public function elementor($last = 0, $limit = 1)
     {
         add_filter('posts_where', function ($where, WP_Query $q) {
             if ($q->get('last_id')) {
@@ -63,9 +63,8 @@ class Posts extends Models
             }
 
             return $query->posts;
-        } else {
-            return [];
         }
+        return false;
     }
 
     public function post($postId = false)

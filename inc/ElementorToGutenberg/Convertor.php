@@ -33,8 +33,8 @@ class Convertor
         $last  = $this->options->get('last') ?: 0;
         $posts = $this->posts->elementor($last);
 
-        if (empty($posts)) {
-            return;
+        if ( ! $posts) {
+            wp_send_json_error('There are no unconverted posts with Elementor blocks');
         }
 
         foreach ($posts as $post) {

@@ -12,10 +12,10 @@ class Sticky extends Elementor
     {
         $this->recursively($this->element->elements);
 
-        $return = '<!-- wp:finixio/sticky ';
+        $return = '<!-- wp:finixio-blocks/sticky ';
         $return .= json_encode($this->blockSettings);
         $return .= ' -->';
-        $return .= '<!-- /wp:finixio/sticky -->';
+        $return .= '<!-- /wp:finixio-blocks/sticky -->';
 
         return $return;
     }

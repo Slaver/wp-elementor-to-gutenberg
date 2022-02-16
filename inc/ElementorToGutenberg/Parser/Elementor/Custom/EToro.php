@@ -12,10 +12,10 @@ class EToro extends Elementor
     {
         $this->recursively($this->element->elements);
 
-        $return = '<!-- wp:finixio/etoro ';
+        $return = '<!-- wp:finixio-blocks/etoro ';
         $return .= json_encode($this->blockSettings);
         $return .= ' -->';
-        $return .= '<!-- /wp:finixio/etoro -->';
+        $return .= '<!-- /wp:finixio-blocks/etoro -->';
 
         return $return;
     }
