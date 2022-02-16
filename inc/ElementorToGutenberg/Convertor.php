@@ -33,6 +33,10 @@ class Convertor
         $last  = $this->options->get('last') ?: 0;
         $posts = $this->posts->elementor($last);
 
+        if (empty($posts)) {
+            return;
+        }
+
         foreach ($posts as $post) {
             if ( ! empty($post->elementor)) {
                 wp_cache_set('converter_postId', $post->ID);

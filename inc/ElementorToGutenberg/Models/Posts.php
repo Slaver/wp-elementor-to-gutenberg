@@ -63,6 +63,8 @@ class Posts extends Models
             }
 
             return $query->posts;
+        } else {
+            return [];
         }
     }
 
